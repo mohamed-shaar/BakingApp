@@ -15,10 +15,10 @@ public class Recipe {
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = new ArrayList<Step>();
+    private ArrayList<Step> steps = new ArrayList<Step>();
     @SerializedName("servings")
     @Expose
     private long servings;
@@ -29,7 +29,7 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(long id, String name, List<Ingredient> ingredients, List<Step> steps, long servings, String image) {
+    public Recipe(long id, String name, ArrayList<Ingredient> ingredients, ArrayList<Step> steps, long servings, String image) {
         super();
         this.id = id;
         this.name = name;
@@ -69,11 +69,11 @@ public class Recipe {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Recipe withIngredients(List<Ingredient> ingredients) {
+    public Recipe withIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
         return this;
     }
@@ -82,11 +82,11 @@ public class Recipe {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(ArrayList<Step> steps) {
         this.steps = steps;
     }
 
-    public Recipe withSteps(List<Step> steps) {
+    public Recipe withSteps(ArrayList<Step> steps) {
         this.steps = steps;
         return this;
     }
