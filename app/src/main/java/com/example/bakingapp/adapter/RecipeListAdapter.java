@@ -1,6 +1,7 @@
 package com.example.bakingapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bakingapp.DetailsActivity;
 import com.example.bakingapp.R;
 import com.example.bakingapp.model.Recipe;
 import com.squareup.picasso.Picasso;
@@ -42,12 +44,22 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipeListViewHolder holder, final int position) {
         String title = recipes.get(position).getName();
         String image_url = images.get(position);
 
         holder.tv_recipe_title.setText(title);
         Picasso.get().load(image_url).fit().centerCrop().into(holder.iv_recipe_image);
+
+        holder.cv_holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("recipe_object", recipes.get(position));
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,13 +78,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             iv_recipe_image = itemView.findViewById(R.id.iv_recipe);
             tv_recipe_title = itemView.findViewById(R.id.tv_recipe);
             cv_holder = itemView.findViewById(R.id.cv_recipe);
-
-            cv_holder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 }
