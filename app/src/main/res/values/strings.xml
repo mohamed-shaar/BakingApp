@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BakingApp</string>
+    <string name="displays_an_image_of_the_recipe">Displays an image of the recipe.</string>
 </resources>

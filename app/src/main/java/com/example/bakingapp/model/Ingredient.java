@@ -1,12 +1,14 @@
 package com.example.bakingapp.model;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
     @SerializedName("quantity")
     @Expose
-    private long quantity;
+    private float quantity;
     @SerializedName("measure")
     @Expose
     private String measure;
@@ -17,22 +19,22 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(long quantity, String measure, String ingredient) {
+    public Ingredient(float quantity, String measure, String ingredient) {
         super();
         this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
     }
 
-    public long getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
-    public Ingredient withQuantity(long quantity) {
+    public Ingredient withQuantity(float quantity) {
         this.quantity = quantity;
         return this;
     }
