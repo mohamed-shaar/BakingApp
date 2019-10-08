@@ -29,20 +29,25 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra("recipe_object");
-        if (recipe == null){
+        /*if (recipe == null){
             Log.d("Tago", " is null");
         }
         else {
             Log.d("Tago", " is not null");
-        }
+            Log.d("Tago", recipe.getName());
+        }*/
         videoUrls = new ArrayList<>();
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
 
+        ingredients = intent.getParcelableArrayListExtra("ingredient_object");
+        //Log.d("Tago", String.valueOf(ingredients.size()));
+        steps = intent.getParcelableArrayListExtra("step_list");
+        //Log.d("Tago", String.valueOf(steps.size()));
         //ingredients.addAll(recipe.getIngredients());
         //steps.addAll(recipe.getSteps());
 
-        for (Ingredient ingredient: recipe.getIngredients()){
+        /*for (Ingredient ingredient: recipe.getIngredients()){
             ingredients.add(ingredient);
             Log.d("Tago name", ingredient.getIngredient());
         }
@@ -51,9 +56,13 @@ public class DetailsActivity extends AppCompatActivity {
             steps.add(step);
             Log.d("Tago", step.getDescription());
         }
-        Log.d("Tago", String.valueOf(steps.size()));
+        Log.d("Tago", String.valueOf(steps.size()));*/
         for (Step step: steps){
             videoUrls.add(step.getVideoURL());
+            Log.d("Array step", step.getShortDescription());
+        }
+        for (Ingredient ingredient: ingredients){
+            Log.d("Array ingredient", ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getIngredient());
         }
 
         RecipeInformationFragment recipeInformationFragment = new RecipeInformationFragment(this, ingredients, steps);

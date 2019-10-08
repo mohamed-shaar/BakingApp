@@ -48,19 +48,19 @@ public class RecipeInformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_details, container, false);
 
         rv_ingredients = view.findViewById(R.id.rv_recipe_ingredients);
-        //rv_steps = view.findViewById(R.id.rv_recipe_steps);
+        rv_steps = view.findViewById(R.id.rv_recipe_steps);
 
         rv_ingredients.setLayoutManager(new LinearLayoutManager(context));
-        //rv_steps.setLayoutManager(new LinearLayoutManager(context));
+        rv_steps.setLayoutManager(new LinearLayoutManager(context));
 
         rv_ingredients.setHasFixedSize(false);
-        //rv_steps.setHasFixedSize(false);
+        rv_steps.setHasFixedSize(false);
 
         ingredientsAdapter = new RecipeIngredientsAdapter(context, ingredients);
-        //stepsAdapter = new RecipeStepsAdapter(context, steps);
+        stepsAdapter = new RecipeStepsAdapter(context, steps);
 
         rv_ingredients.setAdapter(ingredientsAdapter);
-        //rv_steps.setAdapter(stepsAdapter);
+        rv_steps.setAdapter(stepsAdapter);
 
         Log.d("Tago Fragment", String.valueOf(ingredients.size() + String.valueOf(steps.size())));
         return view;

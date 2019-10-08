@@ -39,7 +39,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         String id = String.valueOf(steps.get(position).getId());
         String description = steps.get(position).getDescription();
 
-        holder.tv_recipe_step_id.setText(id);
+        //holder.tv_recipe_step_id.setText(id);
         holder.tv_recipe_step_description.setText(description);
     }
 

@@ -41,8 +41,7 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
                 + " "
                 + ingredient.getMeasure()
                 + " "
-                + ingredient.getIngredient()
-                + "/n";
+                + ingredient.getIngredient();
 
         holder.tv_recipe_ingredient.setText(allIngredients);
     }
