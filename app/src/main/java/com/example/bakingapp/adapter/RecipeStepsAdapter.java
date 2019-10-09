@@ -23,11 +23,13 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     private Context context;
     private ArrayList<Step> steps;
     private ArrayList<String> videoUrl;
+    private boolean tabletMode;
 
-    public RecipeStepsAdapter(Context context, ArrayList<Step> steps, ArrayList<String> videoUrl) {
+    public RecipeStepsAdapter(Context context, ArrayList<Step> steps, ArrayList<String> videoUrl, boolean tabletMode) {
         this.context = context;
         this.steps = steps;
         this.videoUrl = videoUrl;
+        this.tabletMode = tabletMode;
     }
 
     public RecipeStepsAdapter() {
@@ -53,7 +55,13 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
             public void onClick(View v) {
                 //((FragmentActivity) v.getContext()).getFragmentManager().beginTransaction()
                 ExoPlayerFragment playerFragment = new ExoPlayerFragment(videoUrl, position);
-                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_details, playerFragment).commit();
+                if (tabletMode){
+                    ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.fragment_video, playerFragment).commit();
+                }
+                else {
+                    ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_details, playerFragment).commit();
+                }
+
             }
         });
     }

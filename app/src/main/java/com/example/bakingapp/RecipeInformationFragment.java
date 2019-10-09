@@ -32,12 +32,15 @@ public class RecipeInformationFragment extends Fragment {
     private RecipeStepsAdapter stepsAdapter;
     private Context context;
 
+    private boolean tabletMode;
 
-    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps, ArrayList<String> videoUrl) {
+
+    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps, ArrayList<String> videoUrl, boolean tabletMode) {
         this.context = context;
         this.ingredients = ingredients;
         this.steps = steps;
         this.videoUrl = videoUrl;
+        this.tabletMode = tabletMode;
     }
 
     public RecipeInformationFragment(){}
@@ -59,7 +62,7 @@ public class RecipeInformationFragment extends Fragment {
         rv_steps.setHasFixedSize(false);
 
         ingredientsAdapter = new RecipeIngredientsAdapter(context, ingredients);
-        stepsAdapter = new RecipeStepsAdapter(context, steps, videoUrl);
+        stepsAdapter = new RecipeStepsAdapter(context, steps, videoUrl, tabletMode);
 
         rv_ingredients.setAdapter(ingredientsAdapter);
         rv_steps.setAdapter(stepsAdapter);
