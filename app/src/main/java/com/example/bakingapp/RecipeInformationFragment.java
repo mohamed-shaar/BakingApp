@@ -26,16 +26,21 @@ public class RecipeInformationFragment extends Fragment {
 
     private ArrayList<Ingredient> ingredients;
     private ArrayList<Step> steps;
+    private ArrayList<String> videoUrl;
 
     private RecipeIngredientsAdapter ingredientsAdapter;
     private RecipeStepsAdapter stepsAdapter;
     private Context context;
 
+    private boolean tabletMode;
 
-    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps) {
+
+    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps, ArrayList<String> videoUrl, boolean tabletMode) {
         this.context = context;
         this.ingredients = ingredients;
         this.steps = steps;
+        this.videoUrl = videoUrl;
+        this.tabletMode = tabletMode;
     }
 
     public RecipeInformationFragment(){}
@@ -48,19 +53,19 @@ public class RecipeInformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_details, container, false);
 
         rv_ingredients = view.findViewById(R.id.rv_recipe_ingredients);
-        //rv_steps = view.findViewById(R.id.rv_recipe_steps);
+        rv_steps = view.findViewById(R.id.rv_recipe_steps);
 
         rv_ingredients.setLayoutManager(new LinearLayoutManager(context));
-        //rv_steps.setLayoutManager(new LinearLayoutManager(context));
+        rv_steps.setLayoutManager(new LinearLayoutManager(context));
 
         rv_ingredients.setHasFixedSize(false);
-        //rv_steps.setHasFixedSize(false);
+        rv_steps.setHasFixedSize(false);
 
         ingredientsAdapter = new RecipeIngredientsAdapter(context, ingredients);
-        //stepsAdapter = new RecipeStepsAdapter(context, steps);
+        stepsAdapter = new RecipeStepsAdapter(context, steps, videoUrl, tabletMode);
 
         rv_ingredients.setAdapter(ingredientsAdapter);
-        //rv_steps.setAdapter(stepsAdapter);
+        rv_steps.setAdapter(stepsAdapter);
 
         Log.d("Tago Fragment", String.valueOf(ingredients.size() + String.valueOf(steps.size())));
         return view;

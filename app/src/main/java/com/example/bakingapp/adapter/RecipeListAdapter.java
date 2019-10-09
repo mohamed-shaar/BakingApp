@@ -56,6 +56,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("recipe_object", recipes.get(position));
+                intent.putParcelableArrayListExtra("ingredient_object", recipes.get(position).getIngredients());
+                intent.putParcelableArrayListExtra("step_list", recipes.get(position).getSteps());
                 Log.d("Tago adapter", recipes.get(position).getName());
                 context.startActivity(intent);
             }
