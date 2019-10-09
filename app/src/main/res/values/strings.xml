@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BakingApp</string>
     <string name="displays_an_image_of_the_recipe">Displays an image of the recipe.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

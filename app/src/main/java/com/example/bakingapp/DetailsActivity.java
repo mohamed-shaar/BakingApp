@@ -65,7 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
             Log.d("Array ingredient", ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getIngredient());
         }
 
-        RecipeInformationFragment recipeInformationFragment = new RecipeInformationFragment(this, ingredients, steps);
+        RecipeInformationFragment recipeInformationFragment = new RecipeInformationFragment(this, ingredients, steps, videoUrls);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_details, recipeInformationFragment).commit();
         //fragmentManager.beginTransaction().add(R.id.fragment_details, recipeInformationFragment).commit();
     }

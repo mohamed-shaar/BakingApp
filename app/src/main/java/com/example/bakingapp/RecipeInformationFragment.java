@@ -26,16 +26,18 @@ public class RecipeInformationFragment extends Fragment {
 
     private ArrayList<Ingredient> ingredients;
     private ArrayList<Step> steps;
+    private ArrayList<String> videoUrl;
 
     private RecipeIngredientsAdapter ingredientsAdapter;
     private RecipeStepsAdapter stepsAdapter;
     private Context context;
 
 
-    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps) {
+    public RecipeInformationFragment(Context context,ArrayList<Ingredient> ingredients, ArrayList<Step> steps, ArrayList<String> videoUrl) {
         this.context = context;
         this.ingredients = ingredients;
         this.steps = steps;
+        this.videoUrl = videoUrl;
     }
 
     public RecipeInformationFragment(){}
@@ -57,7 +59,7 @@ public class RecipeInformationFragment extends Fragment {
         rv_steps.setHasFixedSize(false);
 
         ingredientsAdapter = new RecipeIngredientsAdapter(context, ingredients);
-        stepsAdapter = new RecipeStepsAdapter(context, steps);
+        stepsAdapter = new RecipeStepsAdapter(context, steps, videoUrl);
 
         rv_ingredients.setAdapter(ingredientsAdapter);
         rv_steps.setAdapter(stepsAdapter);
