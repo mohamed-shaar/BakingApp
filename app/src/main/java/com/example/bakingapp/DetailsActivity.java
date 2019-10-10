@@ -52,6 +52,14 @@ public class DetailsActivity extends AppCompatActivity {
         }
         Log.d("mode", String.valueOf(tabletMode));
         RecipeInformationFragment recipeInformationFragment = new RecipeInformationFragment(this, ingredients, steps, videoUrls, tabletMode);
+        sendToWidget();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_details, recipeInformationFragment).commit();
+    }
+
+    private void sendToWidget(){
+        Intent intent = new Intent(this, BakingAppProvider.class);
+        intent.putParcelableArrayListExtra("ingredient_object", ingredients);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        sendBroadcast(intent);
     }
 }
