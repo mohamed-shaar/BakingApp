@@ -1,12 +1,15 @@
 package com.example.bakingapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.IdlingResource;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
 
 import com.example.bakingapp.adapter.RecipeListAdapter;
 import com.example.bakingapp.api.Client;
@@ -14,7 +17,6 @@ import com.example.bakingapp.api.RecipeApi;
 import com.example.bakingapp.model.Recipe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,19 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Recipe> recipes;
 
     private RecipeListAdapter adapter;
+
+    @Nullable
+    private SimpleIdlingResource simpleIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (simpleIdlingResource == null) {
+            simpleIdlingResource = new SimpleIdlingResource();
+        }
+        return simpleIdlingResource;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
         images.add("https://timeincsecure-a.akamaihd.net/rtmp_uds/429048911/201801/2066/429048911_5706013914001_5703341808001-vs.jpg?pubId=429048911&videoId=5703341808001");
 
         recipes = new ArrayList<Recipe>();
-
+        getIdlingResource();
+        if (simpleIdlingResource != null) {
+            simpleIdlingResource.setIdleState(false);
+        }
         getRecipes();
 
         RecyclerView recipesRecyclerView = findViewById(R.id.rv_recipe_list);
@@ -75,12 +93,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
                     //Log.d("Item count", String.valueOf(adapter.getItemCount()));
+                    if (simpleIdlingResource != null) {
+                        simpleIdlingResource.setIdleState(true);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
                 Log.d("Failure in request: ", t.getMessage());
+                if (simpleIdlingResource != null) {
+                    simpleIdlingResource.setIdleState(true);
+                }
             }
         });
     }
