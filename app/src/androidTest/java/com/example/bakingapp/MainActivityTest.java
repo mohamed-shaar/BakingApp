@@ -42,7 +42,6 @@ public class MainActivityTest {
     public void recyclerViewTest() {
         onView(withId(R.id.rv_recipe_list)).check(matches(hasDescendant(withText("Nutella Pie"))));
         onView(withId(R.id.rv_recipe_list)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        //onView(withText("2. Prep the cookie crust.")).check(matches(isDisplayed()));
         onView(withId(R.id.rv_recipe_ingredients)).check(matches(hasDescendant(withText("1.5 TSP salt"))));
     }
 
