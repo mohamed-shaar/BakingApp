@@ -64,25 +64,21 @@ public class ExoPlayerFragment extends Fragment {
         //initializePlayer(Uri.parse(answerSample.getUri()));
         //Log.d("uri", videoUrl.get(index));
         //Log.d("uri position", String.valueOf(index));
-        initializePlayer(Uri.parse(videoUrl.get(index)));
+        initializePlayer();
+        playVideo(Uri.parse(videoUrl.get(index)));
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri mediaUri;
-                if (index == videoUrl.size()){
+                if (index == videoUrl.size()) {
                     index = 0;
                     mediaUri = Uri.parse(videoUrl.get(index));
-                }
-                else {
+                } else {
                     mediaUri = Uri.parse(videoUrl.get(++index));
                 }
                 //Uri mediaUri = Uri.parse(videoUrl.get(++index));
-                String userAgent = Util.getUserAgent(getContext(), "BakingApp");
-                MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
-                        getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
-                mExoPlayer.prepare(mediaSource);
-                mExoPlayer.setPlayWhenReady(true);
+                playVideo(mediaUri);
             }
         });
 
@@ -90,26 +86,21 @@ public class ExoPlayerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Uri mediaUri;
-                if (index == 1){
+                if (index == 1) {
                     index = videoUrl.size() + 1;
                     mediaUri = Uri.parse(videoUrl.get(index));
-                }
-                else {
+                } else {
                     mediaUri = Uri.parse(videoUrl.get(--index));
                 }
                 //Uri mediaUri = Uri.parse(videoUrl.get(--index));
-                String userAgent = Util.getUserAgent(getContext(), "BakingApp");
-                MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
-                        getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
-                mExoPlayer.prepare(mediaSource);
-                mExoPlayer.setPlayWhenReady(true);
+                playVideo(mediaUri);
             }
         });
 
         return view;
     }
 
-    private void initializePlayer(Uri mediaUri) {
+    private void initializePlayer() {
         if (mExoPlayer == null) {
             // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
@@ -117,12 +108,20 @@ public class ExoPlayerFragment extends Fragment {
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
             // Prepare the MediaSource.
-            String userAgent = Util.getUserAgent(getContext(), "BakingApp");
+            /*String userAgent = Util.getUserAgent(getContext(), "BakingApp");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(true);*/
         }
+    }
+
+    private void playVideo(Uri mediaUri) {
+        String userAgent = Util.getUserAgent(getContext(), "BakingApp");
+        MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
+                getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
+        mExoPlayer.prepare(mediaSource);
+        mExoPlayer.setPlayWhenReady(true);
     }
 
     private void releasePlayer() {
@@ -150,6 +149,22 @@ public class ExoPlayerFragment extends Fragment {
         super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || mExoPlayer == null)) {
+            initializePlayer();
         }
     }
 }
