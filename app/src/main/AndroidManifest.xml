@@ -21,8 +21,10 @@
                 android:resource="@xml/baking_app_provider_info" />
         </receiver>
 
-        <activity android:name=".DetailsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".DetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

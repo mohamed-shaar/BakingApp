@@ -62,8 +62,8 @@ public class ExoPlayerFragment extends Fragment {
         btn_previous = view.findViewById(R.id.btn_previous);
 
         //initializePlayer(Uri.parse(answerSample.getUri()));
-        Log.d("uri", videoUrl.get(index));
-        Log.d("uri position", String.valueOf(index));
+        //Log.d("uri", videoUrl.get(index));
+        //Log.d("uri position", String.valueOf(index));
         initializePlayer(Uri.parse(videoUrl.get(index)));
 
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -135,5 +135,21 @@ public class ExoPlayerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         releasePlayer();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
     }
 }
