@@ -56,7 +56,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
                 //((FragmentActivity) v.getContext()).getFragmentManager().beginTransaction()
                 ExoPlayerFragment playerFragment = new ExoPlayerFragment(videoUrl, position);
                 if (tabletMode){
-                    ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.fragment_video, playerFragment).commit();
+                    ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.fragment_video, playerFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
                 else {
                     ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_details, playerFragment).commit();

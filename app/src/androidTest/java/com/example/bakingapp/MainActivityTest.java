@@ -45,6 +45,14 @@ public class MainActivityTest {
         onView(withId(R.id.rv_recipe_ingredients)).check(matches(hasDescendant(withText("1.5 TSP salt"))));
     }
 
+    @Test
+    public void reachesExoPlayer(){
+        onView(withId(R.id.rv_recipe_list)).check(matches(hasDescendant(withText("Brownies"))));
+        onView(withId(R.id.rv_recipe_list)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.rv_recipe_steps)).check(matches(hasDescendant(withText("9. Cut and serve."))));
+
+    }
+
     @After
     public void unregisterIdlingResource() {
         if (idlingResource != null) {

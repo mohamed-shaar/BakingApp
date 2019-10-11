@@ -67,7 +67,7 @@ public class RecipeInformationFragment extends Fragment {
         rv_ingredients.setAdapter(ingredientsAdapter);
         rv_steps.setAdapter(stepsAdapter);
 
-        Log.d("Tago Fragment", String.valueOf(ingredients.size() + String.valueOf(steps.size())));
+        //Log.d("Tago Fragment", String.valueOf(ingredients.size() + String.valueOf(steps.size())));
         return view;
     }
 }
